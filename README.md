@@ -18,3 +18,4 @@ Steps:
 3. Istall React **npm install react**
 4. Install React DOM **npm install react-dom**
 5. Install Dev Dependency process **npm install -D process**
+6. Install React Router DOM **npm install react-router-dom**
