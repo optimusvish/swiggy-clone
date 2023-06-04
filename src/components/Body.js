@@ -22,7 +22,7 @@ const Body = () => {
     }, [paginationFlag]);
 
     const handleScroll = () => {
-        console.log(window.innerHeight + document.documentElement.scrollTop, document.documentElement.offsetHeight);
+        //console.log(window.innerHeight + document.documentElement.scrollTop, document.documentElement.offsetHeight);
         if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
             fetchAllRestaurantsData();
             setPaginationFlag(true);
@@ -43,7 +43,7 @@ const Body = () => {
                     (res) => {return res.data;}
                 );
             }
-            console.log(apiUrl, allRestaurants.length);
+            //console.log(apiUrl, allRestaurants.length);
             setIsLoadMoreEnabled(allRestaurants.length >= OFFSET_LIMIT);
             if(isLoadMoreEnabled) {
                 offsetLimit.current = offsetLimit.current+OFFSET_NEXT_PAGE_LIMIT;
