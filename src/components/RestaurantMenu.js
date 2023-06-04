@@ -60,7 +60,9 @@ const RestaurantMenu = () => {
                                 <li 
                                     key={menuItem.card?.info?.id}
                                 >
-                                    {menuItem.card?.info?.name} - Rs.: {(menuItem.card?.info?.price)?(menuItem.card?.info?.price)/100 + "/-" : (menuItem.card?.info?.defaultPrice)/100 + "/-"}
+                                    <span className='item-name'>{menuItem.card?.info?.name}</span>
+                                    <span className='item-price'>Rs.: {(menuItem.card?.info?.price) ? (menuItem.card?.info?.price)/100 + "/-" : (menuItem.card?.info?.defaultPrice)/100 + "/"}</span>
+                                    <span className='item-type'>{(menuItem.card?.info?.isVeg === 1) ? "🟢" : "🔴"}</span>
                                 </li>
                             )
                         })

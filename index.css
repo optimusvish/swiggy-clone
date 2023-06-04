@@ -1,9 +1,18 @@
-.header, .footer {
+.header {
     display: flex;
-    border: 1px solid black;
     justify-content: space-between;
-    box-shadow: cadetblue;
+    -webkit-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
+    -moz-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
+    box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
 }
+ .footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: #ddd;
+    text-align: center;
+ }
 .logo {
     width: 100px;
     height: 85px;
@@ -12,6 +21,8 @@
 .nav-items > ul {
     list-style-type: none;
     display: flex;
+    overflow: hidden;
+    
 }
 
 .nav-items > ul > li {
@@ -21,25 +32,26 @@
 }
 
 .restaurant-card {
+    float: left;
     padding: 5px;
     margin: 10px;
     width: 300px;
     border-radius: 2%;
-    background-color: lightgray;
     word-wrap: break-word;
 
 }
 .restaurant-card-shimmer {
+    float: left;
     padding: 5px;
     margin: 10px;
     width: 300px;
-    height: 400px;
+    height: 350px;
     border-radius: 2%;
     background-color: lightgray;
 }
 
 .restaurant-card:hover {
-    border: 1px solid black;
+    border: 1px solid lightgray;
     cursor: pointer;
 }
 
@@ -51,17 +63,68 @@
 .restaurant-container {
     display: flex;
     flex-wrap: wrap;
-}
-
-.search-input:hover {
-    border: 1px solid black;
-}
-
-.search-button, .filter-button {
-    padding: 5px;
+    background: #fff;
     margin: 5px;
+    padding: 5px;
+}
+
+.search-input {
+    padding: 12px;
+    font-size: 17px;
+    border: 1px solid rgb(235, 175, 175);
+    float: left;
+    width: 60%;
+    background: #f1f1f1;
+    border-radius: 5px;
+}
+
+.search-button {
+    width: 25%;
+    padding: 12px;
+    background: #c93c1b;
+    color: white;
+    font-size: 17px;
+    border: 1px solid rgb(235, 175, 175);
+    border-left: none;
     cursor: pointer;
-    font-size: 15px;
+    border-radius: 5px;
+}
+
+.filter-button, .login-button {
+    background-color: #c93c1b;
+    border: none;
+    color: #fff;
+    padding: 12px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.loadmore {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+
+.loadmore-button {
+    background-color: #c93c1b;
+    border: none;
+    color: #fff;
+    padding: 12px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
 .search-container {
@@ -71,16 +134,14 @@
     flex-wrap: wrap;
 }
 
-.footer {
-    align-content: center;
-}
-
-.login-button {
-    cursor: pointer;
-    font-size: 16px;
+.filter-button:hover, .login-button:hover {
+  background-color: #c93c1b;
+  color: white;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
 .restaurant-info-container {
+    float: left;
     display: flex;
     flex-wrap: wrap;
     padding: 5px;
@@ -88,6 +149,133 @@
 }
 
 .restaurant-details, .restaurant-menu {
+    float: left;
     padding: 5px;
     margin: 5px;
+}
+
+.footer-text {
+    justify-content: space-between;
+    align-content: center;
+    padding: 10px;
+    margin: 10px;
+}
+.item-price {
+    margin: 2px;
+    padding: 2px;
+    font-size: 14px;
+    font-weight: bold;
+}
+.item-type {
+    margin: 2px;
+    padding: 2px;
+
+}
+.item-name {
+    margin: 2px;
+    padding: 2px;
+}
+
+.restaurant-card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.restaurant-info span {
+    float: left;
+    clear: left;
+    display:inline
+}
+.restaurant-name {
+    float: left;
+    display: block;
+    padding: 2px;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.restaurant-cuisines {
+    float: left;
+    display: block;
+    padding: 2px;
+    margin-bottom: 15px;
+    font-size: 13px;
+}
+
+.restaurant-info > ul {
+    float: left;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    justify-content: space-around;
+    -webkit-justify-content: space-around;
+    flex-wrap: nowrap;
+    -webkit-flex-wrap: nowrap;
+}
+
+.restaurant-info > ul > li {
+    margin: 5px;
+    text-align: center;
+    padding: 10px;
+    font-size: 12px;
+}
+
+.restaurant-rating {
+    float: left;
+    display: flex;
+    flex-wrap: nowrap;
+    color: #fff;
+    list-style-type: none;
+    background-color: #48c479;
+}
+.star {
+    padding: 3px;
+    margin: 1px;
+}
+.rating-text {
+    margin: auto;
+}
+
+.restaurant-rating-wran {
+    background-color: #db7c38;
+}
+.restaurant-rating-error {
+    background-color: #e1b055;
+}
+
+.header-link:link, .header-link:visited {
+  background-color: #fff;
+  color: black;
+  border: 1px solid #c93c1b;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 5px;
+}
+
+.header-link:hover, .header-link:active {
+  background-color: #c93c1b;
+  color: white;
+}
+
+.restaurant-list-container {
+    margin-bottom: 15%;
+    padding: 0 0 0 110px;
+    background: #fff;
+}
+
+.sub-menu {
+    margin-bottom: 12%;
+}
+
+.restaurant-dot {
+    font-size: 12px;
+    font-family: bold;
 }

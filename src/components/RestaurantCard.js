@@ -13,11 +13,20 @@ const RestaurantCard = ({restaurantData}) => {
     return (
         <div className="restaurant-card">
             <img src={ IMG_CDN_URL + cloudinaryImageId} alt={name} className="restaurant-image" />
-            <h3>{name}</h3>
-            <h4>{cuisines.join()}</h4>
-            <h5>{avgRating}</h5>
-            <h6>{costForTwoString}</h6>
-            <h6>{slaString}</h6>
+            <div className='restaurant-info'>
+                <span className='restaurant-name'>{name}</span>
+                <span className='restaurant-cuisines'>{cuisines.join(', ')}</span>
+                <ul>
+                    <li className={(avgRating > 4) ? 'restaurant-rating' : (avgRating > 3) ? 'restaurant-rating-wran' : 'restaurant-rating-error' }>
+                        {/* <span className='star'>★</span> */}
+                        <span className='rating-text'>{avgRating}</span>
+                    </li>
+                    <li className='restaurant-dot'>.</li>
+                    <li className='restaurant-delivery-time'>{slaString}</li>
+                    <li className='restaurant-dot'>.</li>
+                    <li className='restaurant-cost'>{costForTwoString}</li>
+                </ul>
+            </div>
         </div>
     );
 };
