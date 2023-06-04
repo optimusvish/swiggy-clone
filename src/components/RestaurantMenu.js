@@ -16,15 +16,19 @@ const RestaurantMenu = () => {
   const fetchRestaurantData = async () => {
     const data = await fetch(SWIGGY_RESTAURANT_INFO_API + restaurantId);
     const json = await data.json();
-    const restaurantMenuData = json.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
+    //console.log(json);
+    let restaurantMenuData = json.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
+    //console.log(restaurantMenuData);
+    if(restaurantMenuData === undefined) {
+        restaurantMenuData = (restaurantMenuData === undefined) ? json.data?.cards[1]?.groupedCard?.cardGroupMap?.REGULAR?.cards : [];
+    }
+    //console.log(restaurantMenuData);
     let recommendedMenuData = restaurantMenuData.filter(
         (res) => res.card?.card?.type?.includes('CATEGORY_TYPE_RECOMMENDED')
     );
-
     if (recommendedMenuData.length === 0) {
-        recommendedMenuData = [restaurantMenuData[1]];
+        recommendedMenuData = (restaurantMenuData[1]?.card?.card !== undefined) ? [restaurantMenuData[1]] : [];
     }
-
     setRestaurantData(json.data?.cards[0]?.card?.card?.info);
     setRestaurantMenuData(restaurantMenuData);
     setRestaurantRecMenuData(recommendedMenuData);
