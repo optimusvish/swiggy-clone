@@ -46,12 +46,20 @@ const RestaurantMenu = () => {
   return (
     <div className='restaurant-info-container'>
         <div className='restaurant-details'>
-            <img src={IMG_CDN_URL + cloudinaryImageId} alt={name} className='restaurant-image' />
-            <h1>{name}</h1>
-            <h2>{cuisines.join()}</h2>
-            <h3>{costForTwoMessage}</h3>
-            <h4>{city}</h4>
-            <h5>Rating: {avgRating}</h5>
+            <div className='restaurant-image-container'>
+                <img src={IMG_CDN_URL + cloudinaryImageId} alt={name} className='restaurant-image' />
+            </div>
+            <div className='restaurant-min-details'>
+                <ul>
+                    <li className='restaurant-name'>{name}</li>
+                    <li className='restaurant-cuisines'>{cuisines.join()}</li>
+                    <li className='restaurant-cost'>{costForTwoMessage}</li>
+                    <li className='restaurant-delivery-time'>{city}</li>
+                    <li className={(avgRating > 4) ? 'restaurant-rating' : (avgRating > 3) ? 'restaurant-rating-wran' : 'restaurant-rating-error' }>
+                        <span className='rating-text'>{avgRating}</span>
+                    </li>
+                </ul>
+            </div>
         </div>
         <div className='restaurant-menu'>
             <h1>Menu</h1>

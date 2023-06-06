@@ -32,7 +32,6 @@ const Body = () => {
     };
 
     const fetchAllRestaurantsData = async () => {
-        console.log(allRestaurantList.length);
         try {
             const data = await fetch(apiUrl);
             const json = await data.json();
