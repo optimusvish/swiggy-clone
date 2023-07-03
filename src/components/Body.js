@@ -1,35 +1,24 @@
 import React, {useEffect, useState, useRef} from 'react';
 import RestaurantCard from './RestaurantCard';
-import RESTAURANT_LIST from '../utils/mockData';
 import { OFFSET_LIMIT, OFFSET_NEXT_PAGE_LIMIT, SWIGGY_API, SWIGGY_PAGINATION_API } from '../utils/constants';
 import Shimmer from './Shimmer';
 import { Link } from 'react-router-dom';
+import useOnlineStatus from '../utils/useOnlineStatus';
 
 const Body = () => {
     const [paginationFlag, setPaginationFlag] = useState(false);
-    let [apiUrl, setApiUrl] = useState(SWIGGY_API);
-    let [allRestaurantList, setAllRestaurantsList] = useState([]);
-    //let [offsetLimit, setOffsetLimit] = useState(OFFSET_LIMIT);
-    let [listOfRestaurants, setListOfRestaurants] = useState([]);
+    const [apiUrl, setApiUrl] = useState(SWIGGY_API);
+    const [allRestaurantList, setAllRestaurantsList] = useState([]);
+    const [listOfRestaurants, setListOfRestaurants] = useState([]);
     const [searchKey, setSearchKey] = useState("");
-    let [isLoadMoreEnabled, setIsLoadMoreEnabled] = useState(false);
+    const [isLoadMoreEnabled, setIsLoadMoreEnabled] = useState(false);
+    const [loadMoreFlag, setLoadMoreFlag] = useState(false);
+    const onlineStatus = useOnlineStatus();
     let offsetLimit = useRef(OFFSET_LIMIT);
 
     useEffect(() => {
-        //window.addEventListener("scroll", handleScroll);
-        fetchAllRestaurantsData();
-        //return () => window.removeEventListener('scroll', handleScroll);
+        ((paginationFlag || offsetLimit.current === OFFSET_LIMIT) && onlineStatus) ? fetchAllRestaurantsData() : '';
     }, [paginationFlag]);
-
-    const handleScroll = () => {
-        //console.log(window.innerHeight + document.documentElement.scrollTop, document.documentElement.offsetHeight);
-        if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
-            fetchAllRestaurantsData();
-            setPaginationFlag(true);
-            offsetLimit.current = offsetLimit.current+OFFSET_LIMIT;
-            setApiUrl(SWIGGY_PAGINATION_API + offsetLimit);
-        }
-    };
 
     const fetchAllRestaurantsData = async () => {
         try {
@@ -55,8 +44,11 @@ const Body = () => {
             //console.log(error);
         } finally {
             setPaginationFlag(false);
+            setLoadMoreFlag(true);
         }
     };
+
+    if(!onlineStatus) return(<h1>You are Offline!!</h1>);
 
     return (
         <div className="body">
@@ -77,6 +69,7 @@ const Body = () => {
                                         (res) => res.data.name.toLowerCase().includes(searchKey.toLowerCase())
                                     );
                                     setListOfRestaurants(listOfRestaurants);
+                                    setIsLoadMoreEnabled(listOfRestaurants.length >= OFFSET_LIMIT);
                                 }
                             }
                         >
@@ -91,6 +84,7 @@ const Body = () => {
                                     (res) => res.data.avgRating > 4
                                 );
                                 setListOfRestaurants(listOfRestaurants);
+                                setIsLoadMoreEnabled(listOfRestaurants.length >= OFFSET_LIMIT);
                             }}
                         >
                             Top Rated Restaurants
@@ -120,16 +114,19 @@ const Body = () => {
                         {
                             (isLoadMoreEnabled) ? 
                                 <div className='loadmore'>
-                                    <button 
-                                        className='loadmore-button'
-                                        onClick={() => {
-                                            setPaginationFlag(true);
-                                            //offsetLimit.current = offsetLimit.current+1;
-                                            setApiUrl(SWIGGY_PAGINATION_API + offsetLimit.current);
-                                        }}
-                                    >
-                                        Load More
-                                    </button>
+                                    {
+                                        (loadMoreFlag) ? <button 
+                                            className='loadmore-button'
+                                            onClick={() => {
+                                                setPaginationFlag(true);
+                                                setApiUrl(SWIGGY_PAGINATION_API + offsetLimit.current);
+                                                setLoadMoreFlag(false);
+                                            }}
+                                        >
+                                            Load More
+                                        </button> : 'Loading...'
+                                    }
+                                    
                                 </div> 
                             : ''
                         }
